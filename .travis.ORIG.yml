@@ -1,7 +1,8 @@
 sudo: true
 dist: trusty
 cache: false
-env: URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+env:
+- URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
 - openssl aes-256-cbc -K $encrypted_b6f5ad8eedf5_key -iv $encrypted_b6f5ad8eedf5_iv
   -in assets/server.key.enc -out assets/server.key -d
@@ -20,6 +21,3 @@ script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg &&
   sfdx force:source:push -u ciorg && sfdx force:apex:test:run -u ciorg -c -r human
 - sfdx force:org:delete -u ciorg -p
-language: ruby
-group: stable
-os: linux
